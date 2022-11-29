@@ -1,0 +1,78 @@
+.slidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 100px;
+    width: 330px;
+    height: 100vh;
+}
+
+.slidebar-info {
+    margin: 30px 0 14px 0;
+    border-bottom: 2px solid #ccc;
+}
+
+.slidebar-info .avatar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slidebar-info .avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.slidebar-info .username {
+    text-align: center;
+    color: #fff;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.slidebar-menu .list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 0px !important;
+}
+
+.slidebar-menu .list-item-link {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.slidebar-menu .list-item-link:hover {
+    background-color: #eb1e63;
+}
+
+.slidebar-menu .list-item-link.active {
+    background-color: #eb1e63;
+}
+
+.slidebar-menu .list-item-link .icon-menu {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slidebar-menu .list-item-link .icon-menu i {
+    font-size: 25px;
+}
+
+/* Content */
+
+
