@@ -1,15 +1,15 @@
 <?php
     session_start();
+    $_SESSION['userAdmin'] = false;
     if (isset($_POST['login'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
         $checkUser = checkuser($email, $password);
-        $userAdmin = true;
         if (is_array($checkUser)) {
-            $_SESSION['userAdmin'] = true;
             $success = true;
             $_SESSION['user'] = $checkUser;
             if ($checkUser['role'] == 'ADMIN'){
+                $_SESSION['userAdmin'] = true;
                 header('Location: /duan1/admin');
             }
         } else {
@@ -30,6 +30,18 @@
 
     if(isset($_POST['logout'])) {
         session_unset();
+    }
+
+    if(isset($_POST['lostPassword'])) {
+        $email = $_POST['emailUser'];
+        $emailUser = getPassword($email);
+        if (is_array($emailUser)) {
+            $_SESSION['message'] = 'Mật khẩu của bạn là: '.$emailUser['password'];
+            $messagePass = true;
+        } else {
+            $_SESSION['message'] = 'Sai email!!';
+            $messagePass = true;
+        }
     }
 ?>
 
@@ -152,6 +164,9 @@
                                 <a href="/duan1/admin" class="text-white hover:border-none text-sm px-8">Admin</a>
                             </li>
                         <?php } ?>
+                        <li>
+                            <button class="text-white text-sm px-8 py-2" name="logout" data-bs-toggle="modal" data-bs-target="#modalProfile">View profile</button>
+                        </li>
                         <li>
                             <form action="" method="post">
                             <button class="text-white text-sm px-8 py-2" name="logout">Thoát</button>
@@ -426,7 +441,7 @@
                             </div>
                             <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
                         </div>
-                        <a href="#" class="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#modalLostPass" class="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
                     </div>
                     <button type="submit" name="login" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login to your account</button>
                     <div class="text-sm pb-4 font-medium text-gray-500 dark:text-gray-300">
@@ -471,7 +486,6 @@
                             </div>
                             <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
                         </div>
-                        <a href="#" class="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
                     </div>
                     <button type="submit" name="register" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button>
                     <div class="text-sm pb-4 font-medium text-gray-500 dark:text-gray-300">
@@ -537,9 +551,103 @@
     </div>
 </div>
 
+<!--Modal profile-->
+<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="modalProfile" tabindex="-1" aria-labelledby="modalProfile" aria-modal="true" role="dialog">
+    <form action="" method="post">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable relative w-auto pointer-events-none">
+            <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+                <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+                    <h5 class="text-xl font-medium leading-normal text-gray-800" id="exampleModalCenteredScrollableLabel">
+                        Thông tin thành viên
+                    </h5>
+                    <button type="button"
+                            class="btn-close box-content flex justify-center items-center    w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                            data-bs-dismiss="modal" aria-label="Close" style="font-size: 30px;"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body relative p-4">
+                    <div class="mb-2">
+                        <label for="name" class="block text-sm font-medium text-gray-900 dark:text-white">Your fullname</label>
+                        <input id="name" name="name" value="<?php echo isset($_SESSION['user']) ? $_SESSION['user']['fullname'] : ''; ?>" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Enter name..." required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                        <input type="email" name="email" id="email" value="<?php echo isset($_SESSION['user']) ? $_SESSION['user']['email'] : ''; ?>" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="name@gmail.com" required>
+                    </div>
+                </div>
+                <div
+                        class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
+                    <button type="button"
+                            class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                            data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--Modal lost password-->
+<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+     id="modalLostPass" data-bs-backdrop="modalLostPass" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog relative w-auto pointer-events-none">
+        <div
+                class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+            <div class="modal-body relative p-4">
+                <form class="space-y-6" action="" method="post">
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                        <input type="email" name="emailUser" id="emailUser" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required>
+                    </div>
+                    <div
+                            class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-2 border-t border-gray-200 rounded-b-md">
+                        <button type="submit"
+                                class="inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                                name="lostPassword"
+                        >
+                            Xác nhận
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php if(isset($messagePass)) { ?>
+    <button type="button" id="messagePass" style="display: none;" data-bs-toggle="modal" data-bs-target="#messagePassword">
+    </button>
+<?php } ?>
+<!--Modal message-->
+<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+     id="messagePassword" data-bs-backdrop="messagePassword" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog relative w-auto pointer-events-none">
+        <div
+                class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+            <div class="modal-body relative p-4">
+                <h1 class="text-red-600"><?php echo isset($_SESSION['message']) ? $_SESSION['message'] : "";?></h1>
+            </div>
+            <div
+                    class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-2 border-t border-gray-200 rounded-b-md">
+                <button type="button"
+                        class="inline-block px-6 py-2.5 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                        data-bs-dismiss="modal"
+                >
+                    Xác nhận
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 <script>
     document.getElementById('modalError').click();
+</script>
+<script>
+    document.getElementById('messagePass').click();
 </script>
 <script>
     document.getElementById('modalSuccess').click();

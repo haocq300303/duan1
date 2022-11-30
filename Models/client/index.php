@@ -81,4 +81,10 @@ function getAllSlider() {
     return $result;
 }
 
+function getPassword($email){
+    $sql = "SELECT * FROM users WHERE email='$email'";
+    $user = getData($sql, 'FETCH_ONE');
+    return $user;
+}
+
 ?>
