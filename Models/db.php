@@ -32,4 +32,17 @@ function getData($sql, $fetchType) {
             return true;
     }
 }
+
+function insertAndGetId($sql) {
+    try {
+        $conn = connectMYSQL();
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+        $last_id = $conn->lastInsertId();
+        return $last_id;
+    }
+    catch (PDOException $e) {
+        echo "Query failed: " . $e->getMessage();
+    }
+}
 ?>

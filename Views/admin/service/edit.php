@@ -3,10 +3,9 @@ $idEdit = isset($_GET['idEdit']) ? $_GET['idEdit'] : "";
 if(isset($_POST['edit'])) {
     $name = $_POST['name'];
     $desc = $_POST['desc'];
-    $price = $_POST['price'];
     $id_room = $_POST['room'];
 
-    updateService($idEdit,$name, $price, $desc, $id_room);
+    updateService($idEdit,$name, $desc, $id_room);
     $message = "Edit thành công!";
     echo "<script>
             setTimeout(() => {
@@ -20,23 +19,13 @@ if(isset($_POST['edit'])) {
     <h1>Quản lý dịch vụ</h1>
 </div>
 
-<h2>Edit dịch vụ</h2>
+<h1 class="text-3xl mb-2">Edit dịch vụ</h1>
 
 <form class="row g-3 needs-validation" novalidate action="" method="POST" enctype="multipart/form-data">
     <div class="col-md-12">
         <label for="name" class="form-label">Name service</label>
-        <input type="text" class="form-control" name="name" id="name" value="<?php echo $row['name']; ?>" placeholder="Enter name..." required>
+        <input type="text" class="form-control rounded border-gray-300" name="name" id="name" value="<?php echo $row['name']; ?>" placeholder="Enter name..." required>
         <div id="nameFeedback" class="invalid-feedback">
-            Required!!!
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="input-group">
-            <span class="input-group-text">$</span>
-            <span class="input-group-text">0.00</span>
-            <input type="text" name="price" value="<?php echo $row['price']; ?>" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-        </div>
-        <div id="priceFeedback" class="invalid-feedback">
             Required!!!
         </div>
     </div>

@@ -23,12 +23,12 @@ function insertFeedback($content, $id_user, $id_room) {
     $sql = "INSERT INTO feedback(content, id_user, id_room) VALUES ('$content', '$id_user', '$id_room')";
     getData($sql, '');
 }
-
 function getAllFeedbackForRoom($idRoom) {
     $sql = "SELECT * FROM feedback WHERE id_room='$idRoom'";
     $result = getData($sql, 'FETCH_ALL');
     return $result;
 }
+
 
 function insertUser($fullname, $email, $password, $role) {
     $sql = "INSERT INTO users VALUES (null, '$fullname', '$email', '$password', '$role')";
@@ -56,15 +56,21 @@ function loadAllServiceForRoom($id_room) {
     return $result;
 }
 
-function insertBook($fullname, $phone, $email, $vocher, $checkin_date, $checkout_date, $total_price, $status, $id_room) {
-    $sql = "INSERT INTO book VALUES (null, '$fullname', '$phone', '$email', '$vocher', '$checkin_date', '$checkout_date', '$total_price', '$status', '$id_room')";
-    getData($sql, '');
+function insertBook($fullname, $phone, $email, $vocher, $checkin_date, $checkout_date, $total_price, $status) {
+    $sql = "INSERT INTO book VALUES (null, '$fullname', '$phone', '$email', '$vocher', '$checkin_date', '$checkout_date', '$total_price', '$status')";
+    $id_book = insertAndGetId($sql);
+    return $id_book;
+}
+
+function insertDetaiBook ($id_room, $id_book, $price) {
+    $sqlDtail = "INSERT INTO detail_book VALUES (null, '$id_room', '$id_book', '$price')";
+    getData($sqlDtail, '');
 }
 
 function checkBooking($id_room, $checkin_date, $checkout_date){
     $checkin = str_split($checkin_date, 10);
     $checkout = str_split($checkout_date, 10);
-    $sql = "SELECT * FROM book WHERE id_room='$id_room' AND checkin_date >= '$checkin[0]' AND checkout_date <= '$checkout[0]' ";
+    $sql = "SELECT * FROM book LEFT JOIN detail_book ON detail_book.id_book=book.id WHERE detail_book.id_room='$id_room' AND checkin_date >= '$checkin[0]' AND checkout_date <= '$checkout[0]' ";
     $book = getData($sql, 'FETCH_ONE');
     return $book;
 }
@@ -86,5 +92,4 @@ function getPassword($email){
     $user = getData($sql, 'FETCH_ONE');
     return $user;
 }
-
 ?>

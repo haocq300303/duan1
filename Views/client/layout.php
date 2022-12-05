@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['userAdmin'] = false;
     if (isset($_POST['login'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -728,32 +727,11 @@
 
 
 </script>
-<script>
-    flatpickr("#myID", {
-        dateFormat: "d-m-Y",
-
-        disable: [
-            {
-                from: "01-11-2022",
-                to: "13-11-2022"
-            },
-            {
-                from: "01-1-2022",
-                to: "15-11-2022"
-            }
-        ]
-
-    });
-</script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
-
-
-
-
-    $(document).ready(function () {
+$(document).ready(function () {
         $(".travel").slick({
             slidesToShow: 3,
             slidesToScroll: 1,

@@ -7,7 +7,6 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
-        <th scope="col">Price</th>
         <th scope="col">Description</th>
         <th scope="col">Room</th>
         <th scope="col">Action</th>
@@ -21,7 +20,6 @@
         <tr>
             <th scope="row"><?php echo $id;?></th>
             <td><?php echo $name;?></td>
-            <td>$<?php echo $price;?></td>
             <td><?php echo $description;?></td>
             <td><?php $nameRoom = getOneProduct($id_room); echo $nameRoom['name'];?></td>
             <td style="text-align: center;">

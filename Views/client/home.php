@@ -1,33 +1,24 @@
 <?php
     if(isset($_POST['search'])) {
-        $email = $_POST['email'];
         $checkin_date = $_POST['checkin_date'];
         $checkout_date = $_POST['checkout_date'];
         $id_category = $_POST['category'];
 
-        $infoUser = ['', '', $email, $checkin_date, $checkout_date];
+        $infoUser = [$checkin_date, $checkout_date];
 
         if(isset($_SESSION['infoUser']) === false) {
             $_SESSION['infoUser'] = [];
         }
-        $_SESSION['infoUser'][] = $infoUser;
+        $_SESSION['infoUser'] = $infoUser;
         echo "<script>window.location.href = '?page=products&idProduct=$id_category'"."</script>";
     }
 ?>
 
 <div class="manh1">
-    <h2 class="ba text-center py-10">ĐẶT PHÒNG</h2>
+    <h2 class="ba text-center py-10">TÌM PHÒNG</h2>
     <div class="wraper py-5">
         <form action="" method="post">
             <div class="manh-2 row">
-                    <div class="manh-3">
-                        <input
-                                type="text"
-                                name="email"
-                                placeholder="Vui lòng nhập email "
-                                class="focus:border-[#1ABC9C] focus:ring-[#1ABC9C] focus:ring-1 sm:text-sm"
-                        />
-                    </div>
                     <div class="manh-3">
                         <div class="select">
                             <select name="category" id="" class="text-sm text-[#999999]">
@@ -40,23 +31,23 @@
                         </div>
                     </div>
                     <div class="manh-3">
-                        <i class="fa fa-calendar" style="font-size: 20px; color: #999999"></i>
                         <input
                                 id="myID"
                                 name="checkin_date"
                                 type="text"
-                                placeholder="Ngày nhận"
+                                placeholder="Ngày check in"
+                                onfocus="(this.type='datetime-local')"
                                 class="focus:border-[#1ABC9C] focus:ring-[#1ABC9C] focus:ring-1 sm:text-sm"
                         />
                     </div>
 
                     <div class="manh-3">
-                        <i class="fa fa-calendar" style="font-size: 20px; color: #999999"></i>
                         <input
                                 id="myID"
                                 name="checkout_date"
                                 type="text"
-                                placeholder="Ngày trả"
+                                placeholder="Ngày check out"
+                                onfocus="(this.type='datetime-local')"
                                 class="focus:border-[#1ABC9C] focus:ring-[#1ABC9C] focus:ring-1 sm:text-sm"
                         />
                     </div>

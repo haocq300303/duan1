@@ -17,4 +17,17 @@ function getOneProduct($id) {
     $result = getData($sql, 'FETCH_ONE');
     return $result;
 }
+
+function getAllDetailBook($idBook) {
+    $sql = "SELECT * FROM detail_book WHERE id_book='$idBook'";
+    $result = getData($sql, 'FETCH_ALL');
+    return $result;
+}
+
+function loadAllServiceForRoom($id_room) {
+    $sql = "SELECT * FROM service WHERE id_room='$id_room'";
+    $result = getData($sql, 'FETCH_ALL');
+    return $result;
+}
+
 ?>

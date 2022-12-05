@@ -1,6 +1,27 @@
 <div class="alert alert-primary" role="alert">
     <h1>Quản lý bình luận</h1>
 </div>
+
+<div>
+    <h1 class="text-xl mb-2">Lọc comments</h1>
+</div>
+
+<select class="form-select" id="category" onchange="
+        if(this.value === '') {
+        location.href='<?=URL?>admin?page=feedback'
+        } else {
+        location.href='<?=URL?>admin?page=feedback&idRoom=' + this.value
+        }"
+        name="category" required
+>
+    <option selected value="">Tất cả</option>
+    <?php foreach ($products as $key => $value) {
+        extract($value);
+        ?>
+        <option <?php echo isset($idRoom) && $idRoom == $id ? "selected" : ""; ?> value="<?php echo $id;?>"><?php echo $name;?></option>
+    <?php } ?>
+</select>
+
 <table class="table table-hover rounded mt-3" style="border: 2px solid #ccc; border-collapse: revert;" >
     <thead>
     <tr>

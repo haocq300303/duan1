@@ -23,4 +23,16 @@
         $result = getData($sql, 'FETCH_ONE');
         return $result;
     }
+
+    function getAllProduct() {
+        $sql = "SELECT * FROM rooms";
+        $result = getData($sql, 'FETCH_ALL');
+        return $result;
+    }
+
+    function getAllFeedbackForRoom($idRoom) {
+        $sql = "SELECT * FROM feedback WHERE id_room='$idRoom'";
+        $result = getData($sql, 'FETCH_ALL');
+        return $result;
+    }
 ?>

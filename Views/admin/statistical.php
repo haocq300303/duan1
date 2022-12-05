@@ -18,9 +18,9 @@
             <td><?php echo $value['madm'] ?></td>
             <td><?php echo $value['tendm'] ?></td>
             <td><?php echo $value['countsp'] ?></td>
-            <td><?php echo $value['minprice'] ?> $</td>
-            <td><?php echo $value['maxprice'] ?> $</td>
-            <td><?php echo $value['avgprice'] ?> $</td>
+            <td>$ <?php echo $value['minprice'] ?></td>
+            <td>$ <?php echo $value['maxprice'] ?></td>
+            <td>$ <?php echo $value['avgprice'] ?></td>
         </tr>
     <?php } ?>
     </tbody>

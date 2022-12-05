@@ -7,8 +7,8 @@
         return $result;
     }
 
-    function insertService($name, $price, $desc, $id_room) {
-        $sql = "INSERT INTO service VALUES (null, '$name', '$price', '$desc', '$id_room')";
+    function insertService($name, $desc, $id_room) {
+        $sql = "INSERT INTO service VALUES (null, '$name', '$desc', '$id_room')";
         getData($sql, '');
     }
 
@@ -23,8 +23,8 @@
         getData($sql,'');
     }
 
-    function updateService($id, $name, $price, $desc, $id_room) {
-        $sql = "UPDATE service SET name='$name', price='$price', description='$desc', id_room='$id_room' WHERE id='$id'";
+    function updateService($id, $name, $desc, $id_room) {
+        $sql = "UPDATE service SET name='$name', description='$desc', id_room='$id_room' WHERE id='$id'";
         getData($sql,'');
     }
 

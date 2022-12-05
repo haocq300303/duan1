@@ -11,7 +11,7 @@
                 <p class="text-gray-600 my-2">Cảm ơn các bạn đã tin tưởng khách sạn của chúng tôi, chúng tôi sẽ liên hệ với bạn sau để thực hiện thanh toán.</p>
                 <p> Have a great day!  </p>
                 <div class="py-10 text-center">
-                    <a href="?page=checkout" class="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
+                    <a href="/duan1/" class="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
                         GO BACK
                     </a>
                 </div>

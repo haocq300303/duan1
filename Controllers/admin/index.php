@@ -12,21 +12,21 @@
             break;
         case "feedback":
             require "Models/admin/feedback.php";
+            $products = getAllProduct();
             if(isset($_GET['idDelete'])) {
                 $idDelete = $_GET['idDelete'];
                 deleteFeedback($idDelete);
             }
-            $result = getAllFeedback();
+            if(isset($_GET['idRoom'])) {
+                $idRoom = $_GET['idRoom'];
+                $result = getAllFeedbackForRoom($idRoom);
+            } else {
+                $result = getAllFeedback();
+            }
             $VIEW = "feedback.php";
             break;
         case "book":
-            require "Models/admin/book.php";
-            if(isset($_GET['idDelete'])) {
-                $idDelete = $_GET['idDelete'];
-                deleteBook($idDelete);
-            }
-            $result = getAllBook();
-            $VIEW = "book.php";
+            require "book.php";
             break;
         case "service":
             require "service.php";

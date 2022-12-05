@@ -8,12 +8,11 @@
         <th scope="col">Fullname</th>
         <th scope="col">Phone</th>
         <th scope="col">Email</th>
-        <th scope="col">Vocher</th>
+        <th scope="col">Endow</th>
         <th scope="col">Date checkin</th>
         <th scope="col">Date checkout</th>
         <th scope="col">Total price</th>
         <th scope="col">Status</th>
-        <th scope="col">Room</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
@@ -32,11 +31,17 @@
             <td><?php echo $checkout_date;?></td>
             <td><?php echo $total_price;?></td>
             <td><?php echo $status;?></td>
-            <td><?php $nameRoom = getOneProduct($id_room); echo $nameRoom['name'];?></td>
             <td style="text-align: center;">
                 <button
-                        type="button" class="btn btn-danger"
-                        data-bs-toggle="modal" data-bs-target="#delete"
+                        type="button" class="btn btn-primary"
+                        data-bs-toggle="modal" data-bs-target="#detailBook"
+                        onclick="location.href='<?=URL?>admin?page=book&act=detail&idDetail=<?php echo $id; ?>'"
+                >
+                    Detail
+                </button>
+                <button
+                        type="button" class="btn btn-danger mt-2"
+                        style="width: 64px;"
                         onclick="
                                 const result = confirm('Bạn có chắc chắn muốn xóa không?');
                                 if(result){
